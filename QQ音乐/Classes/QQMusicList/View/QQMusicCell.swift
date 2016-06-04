@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum QQMusicCellAnimationType: Int {
+    case Rotation
+    case Scale
+}
+
+
 class QQMusicCell: UITableViewCell {
 
     @IBOutlet weak var iconImageView: UIImageView!
@@ -55,6 +61,32 @@ class QQMusicCell: UITableViewCell {
         iconImageView.layer.masksToBounds = true
     }
 
+    
+    
+    func animation(type: QQMusicCellAnimationType) -> () {
+        
+        if type == .Rotation {
+            self.layer.removeAnimationForKey("rotation")
+            let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+            animation.values = [-M_PI * 0.25, 0, M_PI * 0.25, 0]
+            animation.duration = 0.5
+            self.layer.addAnimation(animation, forKey: "rotation")
+        }else if type == .Scale {
+            self.layer.removeAnimationForKey("scale")
+            let animation = CAKeyframeAnimation(keyPath: "transform.scale.x")
+            animation.values = [0.5, 1, 0.5, 1]
+            animation.duration = 0.5
+            self.layer.addAnimation(animation, forKey: "scale")
+        }
+        
+      
+    }
+    
+    
+    
+    
+    
+    
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         
