@@ -8,16 +8,21 @@
 
 import UIKit
 
+
+// 控制器, 只负责, 业务逻辑的调度, 不负责, 具体实现
+
 class QQMusicListTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        QQMusicDataTool.getMusicMs { (musicMs) in
+            
+            // 展示数据
+            print(musicMs)
+            
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
