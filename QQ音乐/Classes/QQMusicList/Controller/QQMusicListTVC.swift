@@ -6,13 +6,18 @@
 //  Copyright © 2016年 xmg. All rights reserved.
 //
 
-import UIKit
-
 
 // 控制器, 只负责, 业务逻辑的调度, 不负责, 具体实现
 
+import UIKit
+
+
+// 存放所有属性
 class QQMusicListTVC: UITableViewController {
 
+    // 后期如果属性比较多, 可以直接把所有属性, 或者懒加载的属性放到这个模块里面, 因为, 属性只能放到这里
+    // 这样做, 比较好管理
+    
     // 数据源
     // 注意监听, 数据源的赋值事件, 然后在内部刷新表格, 
     // 因为这属于一个联动的方法
@@ -22,12 +27,18 @@ class QQMusicListTVC: UITableViewController {
              tableView.reloadData()
         }
     }
+    
+   
+    
 
 }
 
 
 // 主业务逻辑
 extension QQMusicListTVC {
+    
+    // (这里,算是一个控制器的核心, 要求, 第一眼就可以看出来, 这个控制器做了哪些事情)
+    // 所以, 需要保证这里面的业务逻辑清晰
     
     // 保证里面的逻辑清晰, 因为一般看一个控制器, 就是看这几个生命周期方法做了什么事情
     override func viewDidLoad() {
@@ -49,6 +60,22 @@ extension QQMusicListTVC {
     
 }
 
+
+// 功能实现
+extension QQMusicListTVC {
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // 1. 取出数据模型
+        let musicM = musicMs[indexPath.row]
+        
+        // 2. 根据数据模型,播放yinyue
+        QQMusicOperationTool.shareInstance.playMusic(musicM)
+
+    }
+    
+    
+}
 
 
 // 展示数据
@@ -79,10 +106,10 @@ extension QQMusicListTVC {
 
 
 // 处理界面
-// 这个类扩展里面,专门用来存放界面处理的, 
-// 并且提供一个主入口给外界调用, 避免了外界乱调用, 造成的逻辑混乱
 extension QQMusicListTVC {
     
+    // 这个类扩展里面,专门用来存放界面处理的,
+    // 并且提供一个主入口给外界调用, 避免了外界乱调用, 造成的逻辑混乱
     
     // 主入口
     func setUpView() -> () {

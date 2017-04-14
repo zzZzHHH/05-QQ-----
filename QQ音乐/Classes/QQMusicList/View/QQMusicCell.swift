@@ -8,6 +8,7 @@
 
 import UIKit
 
+// cell 内部提供的动画类型枚举
 enum QQMusicCellAnimationType: Int {
     case Rotation
     case Scale
@@ -23,7 +24,7 @@ class QQMusicCell: UITableViewCell {
     @IBOutlet weak var singerNameLabel: UILabel!
     
     
-    
+    // 接收外界传递过来的数据模型, 并监听赋值方法, 进行给子控件赋值
     var musicM: QQMusicModel? {
         didSet {
             if musicM?.icon != nil {
@@ -36,7 +37,7 @@ class QQMusicCell: UITableViewCell {
         }
     }
     
-    
+    // 提供给外界的, 快速创建cell的方法
     class func cellWithTableView(tableView: UITableView) -> QQMusicCell {
         
         // 1. 从缓存池获取
@@ -62,7 +63,7 @@ class QQMusicCell: UITableViewCell {
     }
 
     
-    
+    // 快速动画的方法, 写到这里, 可以是动画的重用性更高
     func animation(type: QQMusicCellAnimationType) -> () {
         
         if type == .Rotation {
@@ -83,19 +84,10 @@ class QQMusicCell: UITableViewCell {
     }
     
     
-    
-    
-    
-    
-    
+    // 重写系统的方法, 可以覆盖掉, 系统的实现
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         
     }
-    
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-    }
     
 }
